@@ -15,7 +15,7 @@ def scrap(pages:int=1):
 
         for row in rows:
             start_time = time.perf_counter()
-            
+
             data = row.find_all("td")
             position = data[0].text
             character = data[1].text
@@ -29,8 +29,9 @@ def scrap(pages:int=1):
             
             equipment = BeautifulSoup(requests.get(profile_link).content, 'html.parser').find_all("table", {"class": "tborder"})[2].find_all("img")
 
-            print([eq['src'] if ("/10121.gif" or "/5.gif") in eq else None for eq in equipment])
-            print()
+            x = [item for item in equipment if ("https://losots.pl/images/los/items/10121.gif" in str(item) or "https://losots.pl/images/los/items/5.gif" in str(item))]
+            print(x)
+            
             
             print(time_leaderboard)
             print(f"Time with profile scraping: {time.perf_counter() - start_time:0.4f}s")
